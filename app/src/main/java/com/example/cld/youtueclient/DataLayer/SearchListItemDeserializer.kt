@@ -1,4 +1,4 @@
-package com.example.cld.youtueclient.DataLayer
+package com.example.cld.youtueclient.dataLayer
 
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer

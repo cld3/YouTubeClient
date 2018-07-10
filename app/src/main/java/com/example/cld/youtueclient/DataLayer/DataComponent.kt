@@ -1,4 +1,4 @@
-package com.example.cld.youtueclient.DataLayer
+package com.example.cld.youtueclient.dataLayer
 
 import com.example.cld.youtueclient.MainActivity
 import dagger.Component

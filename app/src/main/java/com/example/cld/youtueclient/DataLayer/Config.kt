@@ -1,4 +1,4 @@
-package com.example.cld.youtueclient.DataLayer
+package com.example.cld.youtueclient.dataLayer
 
 
 val BASE_URL = "https://www.googleapis.com/youtube/v3/"
