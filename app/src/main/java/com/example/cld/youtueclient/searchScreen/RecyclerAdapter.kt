@@ -11,7 +11,9 @@ import com.example.cld.youtueclient.dataLayer.SearchListItem
 import com.squareup.picasso.Picasso
 
 
-class RecyclerAdapter(var items : MutableList<SearchListItem>): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+
+    var items : MutableList<SearchListItem> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.search_item,parent,false)

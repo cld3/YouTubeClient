@@ -25,11 +25,26 @@ class DataModule {
 
     @Singleton
     @Provides
-    fun getRetrofit(gson: Gson): Retrofit {
+    fun getGsonConverterFactory(gson: Gson) : GsonConverterFactory {
+        return GsonConverterFactory.create(gson)
+    }
+
+    @Singleton
+    @Provides
+    fun getRxJava2CallAdapterFactory() : RxJava2CallAdapterFactory{
+        return RxJava2CallAdapterFactory.create()
+    }
+
+    @Singleton
+    @Provides
+    fun getRetrofit(
+            gsonConverterFactory: GsonConverterFactory,
+            rxJava2CallAdapterFactory: RxJava2CallAdapterFactory
+    ): Retrofit {
         return Retrofit.Builder()
                 .baseUrl(BASE_URL)
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addCallAdapterFactory(rxJava2CallAdapterFactory)
+                .addConverterFactory(gsonConverterFactory)
                 .build()
     }
 
