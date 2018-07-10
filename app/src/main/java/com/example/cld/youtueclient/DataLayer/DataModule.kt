@@ -4,6 +4,9 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -35,6 +38,18 @@ class DataModule {
     @Provides
     fun getYoutubeApi(retrofit: Retrofit): YouTubeApi {
         return retrofit.create(YouTubeApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun getYouTubeRepository(youTubeApi: YouTubeApi): YouTubeRepository {
+        return object : YouTubeRepository {
+            override fun searchVideo(queryText: String): Observable<Array<SearchListItem>> {
+                return youTubeApi.searchVideo(queryText = queryText)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+            }
+        }
     }
 
 }
