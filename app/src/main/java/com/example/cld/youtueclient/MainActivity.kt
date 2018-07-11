@@ -1,9 +1,11 @@
 package com.example.cld.youtueclient
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.example.cld.youtueclient.dataLayer.YouTubeRepository
+import com.example.cld.youtueclient.playVideo.PlayVideoActivity
 import com.example.cld.youtueclient.searchScreen.SearchFragment
 import retrofit2.Retrofit
 import javax.inject.Inject
@@ -17,5 +19,6 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
                 .replace(R.id.mainContainer,SearchFragment())
                 .commit()
+   //     startActivity(Intent(baseContext,PlayVideoActivity::class.java))
     }
 }

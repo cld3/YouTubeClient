@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.example.cld.youtueclient.R
+import com.example.cld.youtueclient.dataLayer.SearchListItem
 import com.example.cld.youtueclient.dataLayer.YOUTUBE_API_KEY
 import com.google.android.youtube.player.*
 import kotlinx.android.synthetic.main.play_video_activity.*
@@ -11,9 +12,12 @@ import kotlinx.android.synthetic.main.play_video_activity.*
 
 class PlayVideoActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener {
 
+    lateinit var item: SearchListItem
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.play_video_activity)
+        item = intent.getSerializableExtra("item") as SearchListItem
 
         playerQQ.initialize(YOUTUBE_API_KEY, this)
     }
@@ -23,7 +27,7 @@ class PlayVideoActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedList
         player.setPlaybackEventListener(playbackEventListener)
 
         if (!wasRestored) {
-            player.cueVideo(VIDEO_ID)
+            player.cueVideo(item.videoId)
             player.play()
         }
     }
@@ -59,12 +63,5 @@ class PlayVideoActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedList
         override fun onVideoEnded() {}
 
         override fun onVideoStarted() {}
-    }
-
-
-
-    companion object {
-        //http://youtu.be/<VIDEO_ID>
-        val VIDEO_ID = "sncSt3IWWCM"
     }
 }

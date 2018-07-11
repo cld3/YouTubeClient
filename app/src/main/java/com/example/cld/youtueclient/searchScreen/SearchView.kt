@@ -5,4 +5,5 @@ import com.example.cld.youtueclient.dataLayer.SearchListItem
 
 interface SearchView : MvpView {
     fun updateList(items: MutableList<SearchListItem>)
+    fun playVideo(item: SearchListItem)
 }

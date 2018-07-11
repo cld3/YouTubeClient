@@ -1,6 +1,8 @@
 package com.example.cld.youtueclient.dataLayer
 
-data class SearchListItem (
+import java.io.Serializable
+
+class SearchListItem(
         var videoId: String,
         var publishedAt: String,
         var channelId: String,
@@ -8,5 +10,5 @@ data class SearchListItem (
         var description: String,
         var channelTitle: String,
         var imageUrl: String
-) {
+) : Serializable {
 }

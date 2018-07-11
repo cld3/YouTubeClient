@@ -4,6 +4,7 @@ import android.util.Log
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.example.cld.youtueclient.dataLayer.DaggerDataComponent
+import com.example.cld.youtueclient.dataLayer.SearchListItem
 import com.example.cld.youtueclient.dataLayer.YouTubeApi
 import com.example.cld.youtueclient.dataLayer.YouTubeRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -26,5 +27,9 @@ class SearchPresenter: MvpPresenter<SearchView>() {
     fun search(queryText: String) {
         youTubeRepository.searchVideo(queryText)
                 .subscribe {viewState.updateList(it.asList().toMutableList())}
+    }
+
+    fun playVideo(item : SearchListItem){
+        viewState.playVideo(item)
     }
 }

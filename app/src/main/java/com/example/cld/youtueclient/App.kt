@@ -15,6 +15,7 @@ class App : Application() {
 
         dataComponent = DaggerDataComponent.builder()
                 .build()
+
     }
 
 
