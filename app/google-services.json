@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "153980117248",
+    "firebase_url": "https://planar-flux-209215.firebaseio.com",
+    "project_id": "planar-flux-209215",
+    "storage_bucket": "planar-flux-209215.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:153980117248:android:e74f422ba6361236",
+        "android_client_info": {
+          "package_name": "com.example.cld.youtueclient"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "153980117248-m208qh1sr5ger66v9juvbeh726l7hfn8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cld.youtueclient",
+            "certificate_hash": "ba50d3973868f564836b459eea960bff79af19f5"
+          }
+        },
+        {
+          "client_id": "153980117248-4dhj3hhnktvjnr2pl7jp0neub0h3hpm0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3PTvWQxogcgn7TCvidex-GyIPkLFFYEw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "153980117248-4dhj3hhnktvjnr2pl7jp0neub0h3hpm0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
