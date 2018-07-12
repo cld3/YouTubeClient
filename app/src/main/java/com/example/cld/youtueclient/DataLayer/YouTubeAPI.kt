@@ -13,4 +13,11 @@ interface YouTubeApi {
             @Query("type") type: String = "video",
             @Query("key") apiKey: String = YOUTUBE_API_KEY
     ): Observable<Array<SearchListItem>>
+
+    @GET("commentThreads")
+    fun getComments(
+            @Query("part") part: String = "snippet",
+            @Query("videoId") videoId: String,
+            @Query("key") apiKey: String = YOUTUBE_API_KEY
+    ): Observable<Array<Comment>>
 }

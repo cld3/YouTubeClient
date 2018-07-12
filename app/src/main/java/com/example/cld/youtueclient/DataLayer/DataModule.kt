@@ -20,6 +20,7 @@ class DataModule {
     fun getGson(): Gson {
         return GsonBuilder()
                 .registerTypeAdapter(Array<SearchListItem>::class.java, SearchListItemDeserializer())
+                .registerTypeAdapter(Array<Comment>::class.java,CommentDeserializer())
                 .create()
     }
 
@@ -59,6 +60,13 @@ class DataModule {
     @Provides
     fun getYouTubeRepository(youTubeApi: YouTubeApi): YouTubeRepository {
         return object : YouTubeRepository {
+            override fun getComments(videoId: String): Observable<Array<Comment>> {
+                return youTubeApi.getComments(videoId = videoId)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+            }
+
+
             override fun searchVideo(queryText: String): Observable<Array<SearchListItem>> {
                 return youTubeApi.searchVideo(queryText = queryText)
                         .subscribeOn(Schedulers.io())
