@@ -20,4 +20,11 @@ interface YouTubeApi {
             @Query("videoId") videoId: String,
             @Query("key") apiKey: String = YOUTUBE_API_KEY
     ): Observable<Array<Comment>>
+
+    @GET("subscriptions")
+    fun getSubscriptionsForChanel(
+            @Query("part") part: String = "snippet",
+            @Query("channelId") channelId: String,
+            @Query("key") accessToken: String
+    ): Observable<Array<Channel>>
 }
