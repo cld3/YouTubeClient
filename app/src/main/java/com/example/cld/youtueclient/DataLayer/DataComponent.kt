@@ -1,6 +1,7 @@
 package com.example.cld.youtueclient.dataLayer
 
 import com.example.cld.youtueclient.MainActivity
+import com.example.cld.youtueclient.accountScreen.AccountFragment
 import com.example.cld.youtueclient.playVideo.PlayVideoActivity
 import com.example.cld.youtueclient.searchScreen.SearchFragment
 import com.example.cld.youtueclient.searchScreen.SearchPresenter
@@ -14,4 +15,5 @@ interface DataComponent{
     fun inject(activity: PlayVideoActivity)
     fun inject(searchFragment: SearchFragment)
     fun inject(searchPresenter: SearchPresenter)
+    fun inject(accountFragment: AccountFragment)
 }
