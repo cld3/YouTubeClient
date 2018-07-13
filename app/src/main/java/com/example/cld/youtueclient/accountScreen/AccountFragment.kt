@@ -1,16 +1,14 @@
 package com.example.cld.youtueclient.accountScreen
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.cld.youtueclient.App
 import com.example.cld.youtueclient.R
-import com.example.cld.youtueclient.dataLayer.CHANNEL_ID
-import com.example.cld.youtueclient.dataLayer.USER_IMAGE
 import com.example.cld.youtueclient.dataLayer.YOUTUBE_API_KEY
 import com.example.cld.youtueclient.dataLayer.YouTubeRepository
 import com.squareup.picasso.Picasso
@@ -34,15 +32,19 @@ class AccountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Picasso.get().load(USER_IMAGE).into(userImage)
-        username.text = USER_IMAGE
+        val sharedPref = activity?.getSharedPreferences(getString(R.string.preferences_key),Context.MODE_PRIVATE)
 
-        recyvler.layoutManager = LinearLayoutManager(context)
-        recyvler.adapter = RecyclerAdapter()
+        Picasso.get().load(sharedPref?.getString("photoUrl","nun")).into(userImage)
+
+        username.text = sharedPref?.getString("displayName","nun")
+        email.text = sharedPref?.getString("email","nun")
+
+        recycler.layoutManager = LinearLayoutManager(context)
+        recycler.adapter = RecyclerAdapter()
         youTubeRepository.getSubscriptionsForChanel("UCP2q5NCuu3A0B5eZoJYZFQQ", YOUTUBE_API_KEY)
                 .subscribe{
-                    (recyvler.adapter as RecyclerAdapter).items = it.asList().toMutableList()
-                    recyvler.adapter?.notifyDataSetChanged()
+                    (recycler.adapter as RecyclerAdapter).items = it.asList().toMutableList()
+                    recycler.adapter?.notifyDataSetChanged()
                 }
 
 /*
