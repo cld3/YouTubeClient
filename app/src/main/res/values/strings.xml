@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">YouTueClient</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="title_home">Аккаунт</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_search">Поиск</string>
+    <string name="preferences_key">fdnvkiofdgierisd</string>
 </resources>
