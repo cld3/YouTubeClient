@@ -1,5 +1,6 @@
 package com.example.cld.youtueclient.authorization
 
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.example.cld.youtueclient.R
@@ -11,10 +12,9 @@ import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.common.api.Scope
 import com.jakewharton.rxbinding2.view.clicks
 import kotlinx.android.synthetic.main.signin_activity.*
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInResult
 import android.content.Intent
 import android.util.Log
+import com.example.cld.youtueclient.MainActivity
 import com.example.cld.youtueclient.dataLayer.SECRET_KEY
 import okhttp3.*
 import org.json.JSONObject
@@ -26,8 +26,14 @@ class SignInActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLi
     val RC_AUTH_CODE = 10001
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        if (getSharedPreferences(getString(R.string.preferences_key),Context.MODE_PRIVATE).getString("email",null)!=null){
+            startNextSreen()
+            return
+        }
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.signin_activity)
+
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestServerAuthCode(SERVER_CLIENT_ID)
@@ -57,12 +63,24 @@ class SignInActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLi
             val result = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
             if (result.isSuccess) {
                 val acct = result.signInAccount
-                Log.d("qq","acct $acct")
 
+                getSharedPreferences(getString(R.string.preferences_key),Context.MODE_PRIVATE)
+                        .edit()
+                        .putString("displayName",acct?.displayName)
+                        .putString("email",acct?.email)
+                        .apply()
+
+                Log.d("qq","123   "+acct?.photoUrl.toString())
                 val authCode = acct!!.serverAuthCode
                 authCode?.let { getAccessToken(it) }
+
+                startNextSreen()
             }
         }
+    }
+
+    fun startNextSreen(){
+        startActivity(Intent(baseContext,MainActivity::class.java))
     }
 
     fun getAccessToken(authCode: String) {
@@ -74,7 +92,7 @@ class SignInActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLi
                 .add("client_secret", SECRET_KEY)
                 .add("code", authCode)
                 .build()
-        Log.d("qq","request body "+requestBody.toString())
+
         val request = Request.Builder()
                 .url("https://www.googleapis.com/oauth2/v4/token")
                 .header("Content-Type", "application/x-www-form-urlencoded")
@@ -88,11 +106,16 @@ class SignInActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLi
 
             override fun onResponse(call: Call?, response: Response?) {
                 val jsonObject = JSONObject(response?.body()?.string())
-                Log.d("qq","wwwww $jsonObject")
                 val mAccessToken = jsonObject.get("access_token").toString()
                 val mTokenType = jsonObject.get("token_type").toString()
-                val mRefreshToken = jsonObject.get("refresh_token").toString()
-                
+//                val mRefreshToken = jsonObject.get("refresh_token").toString()
+                getSharedPreferences(getString(R.string.preferences_key),Context.MODE_PRIVATE)
+                        .edit()
+                        .putString("mAccessToken",mAccessToken)
+                        .putString("mTokenType",mTokenType)
+                 //       .putString("mRefreshToken",mRefreshToken)
+                        .apply()
+
             }
         })
     }
